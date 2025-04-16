@@ -34,5 +34,10 @@ namespace ContatoAgenda
             ConsultaContato consultaForm = new ConsultaContato();
             consultaForm.ShowDialog();
         }
+
+        private void FormPrincipal_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

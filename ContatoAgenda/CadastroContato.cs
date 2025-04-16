@@ -21,19 +21,20 @@ namespace ContatoAgenda
             InitializeComponent();
         }
 
-        // Método que será chamado ao editar um contato
+        // Este método é chamado quando estamos editando um contato existente
         public void PreencherCampos(string id, string nome, string apelido, string cpf, string telefone, string email)
         {
             modoEdicao = true;
             idContatoEditar = int.Parse(id);
 
+            // Preenche os campos com os dados do contato que será editado
             txtNome.Text = nome;
             txtApelido.Text = apelido;
             mtxCpf.Text = cpf;
             mtxTelefone.Text = telefone;
             txtEmail.Text = email;
 
-            // Como estamos editando, a data de cadastro deve vir do banco (caso deseje adicionar depois)
+            // Desabilita o campo de data de cadastro, pois não deve ser alterado
             dtpCadastro.Enabled = false;
         }
 
@@ -41,7 +42,7 @@ namespace ContatoAgenda
         {
             if (!ValidarCampos())
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                MessageBox.Show("Por favor, preencha todos os campos obrigatórios.");
                 return;
             }
 
@@ -51,6 +52,7 @@ namespace ContatoAgenda
                 {
                     if (modoEdicao)
                     {
+                        // Atualiza os dados do contato se estamos no modo de edição
                         string query = @"UPDATE contato SET 
                                         nome = @nome,
                                         apelido = @apelido,
@@ -78,6 +80,7 @@ namespace ContatoAgenda
                     }
                     else
                     {
+                        // Salva um novo contato no banco de dados
                         string query = @"INSERT INTO contato 
                             (nome, apelido, cpf, telefone, email, data_cadastro, data_ultima_alteracao)
                             VALUES 
@@ -109,6 +112,7 @@ namespace ContatoAgenda
 
         private bool ValidarCampos()
         {
+            // Verifica se todos os campos obrigatórios foram preenchidos
             if (string.IsNullOrWhiteSpace(txtNome.Text)) return false;
             if (string.IsNullOrWhiteSpace(txtApelido.Text)) return false;
             if (string.IsNullOrWhiteSpace(mtxCpf.Text)) return false;
@@ -119,6 +123,7 @@ namespace ContatoAgenda
 
         private void LimparCampos()
         {
+            // Limpa os campos de entrada para um novo cadastro
             txtNome.Clear();
             txtApelido.Clear();
             mtxCpf.Clear();
@@ -129,7 +134,7 @@ namespace ContatoAgenda
 
         private void CadastroContato_Load(object sender, EventArgs e)
         {
-
+            // Método que será executado ao carregar o formulário (não implementado por enquanto)
         }
     }
 }

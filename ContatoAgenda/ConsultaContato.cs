@@ -39,7 +39,7 @@ namespace ContatoAgenda
                     }
                 }
 
-                dgvContatos.Columns["id"].Visible = false; // Esconde a coluna de ID
+                dgvContatos.Columns["id"].Visible = false; // Escondendo a coluna ID para não aparecer na tabela
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace ContatoAgenda
                 frmEditar.PreencherCampos(id, nome, apelido, cpf, telefone, email);
                 frmEditar.ShowDialog();
 
-                CarregarContatos();
+                CarregarContatos(); // Recarrega a lista de contatos após edição
             }
             else
             {
@@ -89,13 +89,13 @@ namespace ContatoAgenda
                 frmEditar.PreencherCampos(id, nome, apelido, cpf, telefone, email);
                 frmEditar.ShowDialog();
 
-                CarregarContatos();
+                CarregarContatos(); // Recarrega os contatos após a edição
             }
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            // vrfica se o campo de texto para data não ta vazio
+            // Verifica se o campo de data foi preenchido
             if (string.IsNullOrWhiteSpace(txtDataCadastro.Text))
             {
                 MessageBox.Show("Por favor, insira uma data para filtrar.");
@@ -104,7 +104,7 @@ namespace ContatoAgenda
 
             DateTime dataCadastro;
 
-            // vrfica se a data insrd e valida
+            // Confirma se a data inserida é válida
             if (!DateTime.TryParse(txtDataCadastro.Text, out dataCadastro))
             {
                 MessageBox.Show("Data inválida. Por favor, insira uma data válida.");
@@ -118,7 +118,7 @@ namespace ContatoAgenda
             using (var conn = Conexao.ObterConexao())
             {
                 var cmd = new NpgsqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@dataCadastro", dataCadastro.Date); // Considera a data sem hora
+                cmd.Parameters.AddWithValue("@dataCadastro", dataCadastro.Date); // Usa apenas a data, sem a hora
 
                 var reader = cmd.ExecuteReader();
 
@@ -152,7 +152,7 @@ namespace ContatoAgenda
                     }
 
                     MessageBox.Show("Contato excluído com sucesso!");
-                    CarregarContatos(); // Recarrega o DataGridView
+                    CarregarContatos(); // Recarrega a lista de contatos após exclusão
                 }
             }
             else

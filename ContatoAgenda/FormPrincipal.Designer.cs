@@ -78,6 +78,7 @@
             this.Controls.Add(this.BtnContato);
             this.Name = "FormPrincipal";
             this.Text = "Menu";
+            this.Load += new System.EventHandler(this.FormPrincipal_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
